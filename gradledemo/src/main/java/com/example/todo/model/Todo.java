@@ -1,21 +1,22 @@
-package com.example.gradledemo.model;
+package com.example.todo.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Todo {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int taskId;
     private String title;
-    private boolean completed;
+    private boolean isCompleted;
 
-    public Todo(int taskId, String title, boolean completed) {
+    public Todo(int taskId, String title, boolean isCompleted) {
         this.taskId = taskId;
         this.title = title;
-        this.completed = completed;
+        this.isCompleted = isCompleted;
     }
 
     public Todo() {
@@ -23,10 +24,6 @@ public class Todo {
 
     public int getTaskId() {
         return taskId;
-    }
-
-    public void setTaskId(int userId) {
-        this.taskId = userId;
     }
 
     public String getTitle() {
@@ -37,12 +34,12 @@ public class Todo {
         this.title = title;
     }
 
-    public boolean getCompleted() {
-        return completed;
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
     @Override
@@ -50,7 +47,7 @@ public class Todo {
         return "DummyToDoModel{" +
                 "taskId=" + taskId +
                 ", title='" + title + '\'' +
-                ", completed=" + completed +
+                ", isCompleted=" + isCompleted +
                 '}';
     }
 }

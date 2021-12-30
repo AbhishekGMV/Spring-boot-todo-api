@@ -1,7 +1,7 @@
-package com.example.gradledemo.service;
+package com.example.todo.service;
 
-import com.example.gradledemo.model.Todo;
-import com.example.gradledemo.repo.TodoRepo;
+import com.example.todo.model.Todo;
+import com.example.todo.repo.TodoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public ResponseEntity deleteTask(int id) {
+    public ResponseEntity<?> deleteTask(int id) {
         try {
             todoRepo.deleteById(id);
             return ResponseEntity.status(200).body("Task deleted");
@@ -41,8 +41,8 @@ public class TodoServiceImpl implements TodoService {
         if (oldTodo.isPresent()) {
             Todo updatedTodo = oldTodo.get();
             updatedTodo.setTitle(todo.getTitle());
-            updatedTodo.setCompleted(todo.getCompleted());
-            return todoRepo.save(todo);
+            updatedTodo.setCompleted(todo.isCompleted());
+            return todoRepo.save(updatedTodo);
         } else {
             return null;
         }

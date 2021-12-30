@@ -1,6 +1,6 @@
-package com.example.gradledemo.repo;
+package com.example.todo.repo;
 
-import com.example.gradledemo.model.Todo;
+import com.example.todo.model.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TodoRepo extends JpaRepository<Todo, Integer> {

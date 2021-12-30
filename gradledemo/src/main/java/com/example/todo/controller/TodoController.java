@@ -1,8 +1,7 @@
-package com.example.gradledemo.controller;
+package com.example.todo.controller;
 
-
-import com.example.gradledemo.model.Todo;
-import com.example.gradledemo.service.TodoServiceImpl;
+import com.example.todo.model.Todo;
+import com.example.todo.service.TodoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/todo")
 public class TodoController {
-
     @Autowired
     TodoServiceImpl todoService;
 
