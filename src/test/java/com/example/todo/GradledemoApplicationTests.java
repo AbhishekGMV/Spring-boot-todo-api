@@ -10,8 +10,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
 @SpringBootTest
 class GradledemoApplicationTests {
 
@@ -20,8 +18,6 @@ class GradledemoApplicationTests {
 
     @InjectMocks
     TodoServiceImpl todoService;
-
-    List<Todo> data;
 
     @Test
     public void testAddTodo() {
