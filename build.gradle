@@ -13,10 +13,16 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    runtimeOnly 'com.h2database:h2'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.3'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.3'
+    implementation group: 'net.minidev', name: 'json-smart', version: '2.4.7'
+    runtimeOnly 'com.h2database:h2:2.1.210'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.3'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.3'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.3'
+    testImplementation 'io.projectreactor:reactor-test:3.4.14'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 test {
