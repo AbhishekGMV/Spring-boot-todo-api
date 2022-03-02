@@ -1,6 +1,8 @@
 package com.example.todo.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,7 +18,7 @@ public class Todo {
     private String title;
     private boolean complete;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Notes> notes;
 }
 

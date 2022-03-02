@@ -1,20 +1,14 @@
 package com.example.todo.controller;
 
-import com.example.todo.model.Notes;
 import com.example.todo.model.Todo;
 import com.example.todo.service.TodoServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import net.minidev.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
