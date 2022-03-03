@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,8 +19,5 @@ public class Todo {
     private int taskId;
     private String title;
     private boolean complete;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Notes> notes;
 }
 
