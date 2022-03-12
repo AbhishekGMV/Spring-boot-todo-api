@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/todo")
 public class TodoController {
@@ -16,17 +13,17 @@ public class TodoController {
     TodoServiceImpl todoService;
 
     @GetMapping("")
-    public List<Todo> getTodoList() {
+    public ResponseEntity<?> getTodoList() {
         return todoService.getTodoList();
     }
 
     @GetMapping("/{id}")
-    public Optional<Todo> getTodo(@PathVariable String id) {
+    public ResponseEntity<?> getTodo(@PathVariable String id) {
         return todoService.getTodo(id);
     }
 
     @PostMapping("/add")
-    public Todo addTask(@RequestBody Todo task) {
+    public ResponseEntity<?> addTask(@RequestBody Todo task) {
         return todoService.addTask(task);
     }
 
@@ -36,7 +33,7 @@ public class TodoController {
     }
 
     @PutMapping("/update")
-    public Todo updateTask(@RequestBody Todo task) {
+    public ResponseEntity<?> updateTask(@RequestBody Todo task) {
         return todoService.updateTask(task);
     }
 
