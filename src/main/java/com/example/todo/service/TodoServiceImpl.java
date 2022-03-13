@@ -14,8 +14,8 @@ import java.util.Optional;
 @Service
 public class TodoServiceImpl implements TodoService {
 
-    private final TodoRepo todoRepo;
     private static final Logger logger = LoggerFactory.getLogger(TodoServiceImpl.class.getName());
+    private final TodoRepo todoRepo;
 
     //Constructor injection
     public TodoServiceImpl(TodoRepo todoRepo) {
@@ -68,7 +68,7 @@ public class TodoServiceImpl implements TodoService {
     public ResponseEntity<?> deleteTask(int id) {
         try {
             todoRepo.deleteById(id);
-            logger.info("Successfully deleted task: "+id);
+            logger.info("Successfully deleted task: " + id);
             return ResponseEntity.status(HttpStatus.OK).body("Task deleted");
         } catch (Exception e) {
             logger.error("Error deleting task: " + e);
@@ -85,7 +85,7 @@ public class TodoServiceImpl implements TodoService {
                 tempTodo.setTitle(todo.getTitle());
                 tempTodo.setComplete(tempTodo.isComplete());
                 Todo updatedTodo = todoRepo.save(tempTodo);
-                logger.info("Task updated "+updatedTodo);
+                logger.info("Task updated " + updatedTodo);
                 return ResponseEntity.status(HttpStatus.OK).body(updatedTodo);
             } else {
                 logger.error("Error updating the task");

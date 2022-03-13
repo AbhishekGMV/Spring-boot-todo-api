@@ -3,9 +3,6 @@ package com.example.todo;
 import com.example.todo.model.Todo;
 import com.example.todo.repo.TodoRepo;
 import com.example.todo.service.TodoServiceImpl;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +16,10 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 class TodoApplicationTests {
 
@@ -30,7 +31,7 @@ class TodoApplicationTests {
 
     @Test
     public void testAddTodo() {
-        Todo todo = new Todo(1,"EAT", true);
+        Todo todo = new Todo(1, "EAT", true);
         when(todoRepo.save(Mockito.any(Todo.class))).thenReturn(todo);
 
         ResponseEntity<?> res = todoService.addTask(todo);
@@ -41,10 +42,10 @@ class TodoApplicationTests {
 
     @Test
     public void testGetTodoList() {
-        Todo t1 = new Todo(1,"walk",false);
-        Todo t2 = new Todo(2,"sleep",false);
-        Todo t3 = new Todo(3,"code",true);
-        Todo t4 = new Todo(4,"run",false);
+        Todo t1 = new Todo(1, "walk", false);
+        Todo t2 = new Todo(2, "sleep", false);
+        Todo t3 = new Todo(3, "code", true);
+        Todo t4 = new Todo(4, "run", false);
 
         List<Todo> todoList = new ArrayList<>();
         todoList.add(t1);
