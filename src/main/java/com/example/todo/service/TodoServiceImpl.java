@@ -89,7 +89,7 @@ public class TodoServiceImpl implements TodoService {
                 return ResponseEntity.status(HttpStatus.OK).body(updatedTodo);
             } else {
                 logger.error("Error updating the task");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Task not found!");
             }
         } catch (Exception e) {
             logger.error("Error updating the task: " + e);
