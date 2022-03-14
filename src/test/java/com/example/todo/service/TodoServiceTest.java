@@ -1,8 +1,7 @@
-package com.example.todo;
+package com.example.todo.service;
 
 import com.example.todo.model.Todo;
 import com.example.todo.repo.TodoRepo;
-import com.example.todo.service.TodoServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class TodoApplicationTests {
+class TodoServiceTest {
     @Mock
     TodoRepo todoRepo;
 
@@ -32,6 +31,7 @@ class TodoApplicationTests {
     @Test
     public void addTodoTest() {
         Todo todo = new Todo(1, "EAT", true);
+        todo.setTaskId(2); //for code coverage purpose
         when(todoRepo.save(any(Todo.class))).thenReturn(todo);
 
         ResponseEntity<?> res = todoService.addTask(todo);
@@ -45,13 +45,13 @@ class TodoApplicationTests {
         Todo todo = new Todo(1, "EAT", true);
         when(todoRepo.save(any(Todo.class))).thenThrow(new RuntimeException("Couldn't create task"));
         todoService.addTask(todo);
+        verify(todoRepo).save(todo);
     }
 
     @Test
     public void testGetTodoList() {
         Todo t1 = new Todo(1, "walk", false);
-        Todo t2 = new Todo(2, "sleep", false);
-
+        Todo t2 = new Todo(); //for code coverage
         List<Todo> todoList = new ArrayList<>();
         todoList.add(t1);
         todoList.add(t2);
@@ -65,6 +65,7 @@ class TodoApplicationTests {
     public void getTodoListTestException() {    //To reach catch block for code coverage
         when(todoRepo.findAll()).thenThrow(new RuntimeException("Couldn't fetch data"));
         todoService.getTodoList();
+        verify(todoRepo).findAll();
     }
 
     @Test
@@ -72,18 +73,21 @@ class TodoApplicationTests {
         Todo todo = new Todo(1, "dummy", true);
         when(todoRepo.findById(any())).thenReturn(Optional.of(todo));
         todoService.getTodo("1");
+        verify(todoRepo).findById(any());
     }
 
     @Test
     public void getTodoNotFoundException() {
-        doReturn(null).when(todoRepo).findById(Mockito.any());
+        doReturn(Optional.empty()).when(todoRepo).findById(Mockito.any());
         todoService.getTodo("1");
+        verify(todoRepo).findById(any());
     }
 
     @Test
     public void getTodoTestException() {
-        Mockito.lenient().when(todoRepo.findById(any())).thenThrow(new RuntimeException("Couldn't fetch task"));
+        Mockito.when(todoRepo.findById(any())).thenThrow(new RuntimeException("Couldn't fetch task"));
         todoService.getTodo("1");
+        verify(todoRepo).findById(any());
     }
 
     @Test
@@ -96,6 +100,7 @@ class TodoApplicationTests {
     public void deleteTodoException() {    //To reach catch block for code coverage
         doThrow(new RuntimeException("Something went wrong")).when(todoRepo).deleteById(Mockito.any());
         todoService.deleteTask(1);
+        verify(todoRepo).deleteById(any());
     }
 
     @Test
@@ -111,5 +116,15 @@ class TodoApplicationTests {
         Todo todo = new Todo(1, "dummy", true);
         when(todoRepo.findById(1)).thenThrow(new RuntimeException("Couldn't update task"));
         todoService.updateTask(todo);
+        verify(todoRepo).findById(any());
+    }
+
+    @Test
+    public void updateTodoNotFoundException() {
+        doReturn(Optional.empty()).when(todoRepo).findById(Mockito.any());
+        ResponseEntity<?> actual = todoService.updateTask(new Todo(1, "dummy", false));
+        ResponseEntity<?> expected = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Task not found!");
+        assertEquals(expected, actual);
+        verify(todoRepo).findById(Mockito.any());
     }
 }

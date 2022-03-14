@@ -38,7 +38,6 @@ public class TodoServiceImpl implements TodoService {
     public ResponseEntity<?> getTodo(String id) {
         try {
             Optional<Todo> task = todoRepo.findById(Integer.parseInt(id));
-
             if (task.isEmpty()) {
                 logger.error("Error fetching task with id: " + id);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No task found for given id");
@@ -46,7 +45,7 @@ public class TodoServiceImpl implements TodoService {
             logger.info("Task fetched: " + task);
             return ResponseEntity.status(HttpStatus.OK).body(task);
         } catch (Exception e) {
-            logger.error("Error fetching the task: " + e);
+            logger.error("Couldn't fetch the task");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error fetching the task:" + e);
         }
     }
@@ -80,6 +79,7 @@ public class TodoServiceImpl implements TodoService {
     public ResponseEntity<?> updateTask(Todo todo) {
         try {
             Optional<Todo> oldTodo = todoRepo.findById(todo.getTaskId());
+            System.out.println("Crazy: " + oldTodo);
             if (oldTodo.isPresent()) {
                 Todo tempTodo = oldTodo.get();
                 tempTodo.setTitle(todo.getTitle());
@@ -87,10 +87,10 @@ public class TodoServiceImpl implements TodoService {
                 Todo updatedTodo = todoRepo.save(tempTodo);
                 logger.info("Task updated " + updatedTodo);
                 return ResponseEntity.status(HttpStatus.OK).body(updatedTodo);
-            } else {
-                logger.error("Error updating the task");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Task not found!");
             }
+            logger.error("Error updating the task: Task not found!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Task not found!");
+
         } catch (Exception e) {
             logger.error("Error updating the task: " + e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
