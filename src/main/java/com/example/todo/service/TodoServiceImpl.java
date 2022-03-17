@@ -79,7 +79,6 @@ public class TodoServiceImpl implements TodoService {
     public ResponseEntity<?> updateTask(Todo todo) {
         try {
             Optional<Todo> oldTodo = todoRepo.findById(todo.getTaskId());
-            System.out.println("Crazy: " + oldTodo);
             if (oldTodo.isPresent()) {
                 Todo tempTodo = oldTodo.get();
                 tempTodo.setTitle(todo.getTitle());
