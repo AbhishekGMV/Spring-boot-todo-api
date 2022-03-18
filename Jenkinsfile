@@ -1,14 +1,31 @@
 pipeline {
     agent any
 
-    triggers {
-        pollSCM '* * * * *'
-    }
-
     stages {
+
+        stage('Clone') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Build') {
             steps {
-                sh './gradlew build'
+                bat 'gradlew build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "On branch 'env.BRANCH_NAME'" + env
+                bat 'gradlew test'
+            }
+
+        }
+
+        stage('deploy'){
+            steps {
+                echo 'Deployed!!'
             }
         }
     }
